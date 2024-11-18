@@ -1,0 +1,87 @@
+:root {
+  --primary-color: #4caf50; /* Green */
+  --secondary-color: #ffffff; /* White */
+  --accent-color: #ff9800; /* Orange */
+  --text-color: #333333; /* Dark Gray */
+  --background-color: #f5f5f5; /* Light Gray */
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Helvetica", sans-serif; /* Assuming you are using Helvetica */
+}
+
+body {
+  background-color: var(
+    --background-color
+  ); /* Light Gray background for the page */
+  color: var(--text-color); /* Dark text color */
+}
+
+main {
+  border-radius: 10px;
+  padding: 40px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  width: 400px;
+  margin: auto;
+  background-color: var(--secondary-color); /* White background for the form */
+}
+
+h1 {
+  color: var(--primary-color); /* Green color for header */
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+.form-floating .form-control {
+  color: var(--text-color); /* Dark text color for input */
+  border: 1px solid var(--primary-color); /* Green border */
+  border-radius: 5px;
+  box-shadow: none;
+  transition: border-color 0.3s;
+}
+
+.form-floating .form-control:focus {
+  border-color: var(--accent-color); /* Orange border when focused */
+  box-shadow: 0 0 0 0.2rem rgba(255, 152, 0, 0.25); /* Orange glow on focus */
+}
+
+label {
+  color: var(--text-color); /* Dark gray for labels */
+  font-weight: bold;
+}
+
+.checkbox label {
+  color: var(--text-color);
+}
+
+button {
+  background-color: var(--accent-color); /* Orange button color */
+  color: var(--secondary-color); /* White button text */
+  border: none;
+  border-radius: 5px;
+  padding: 12px;
+  font-weight: bold;
+  transition: background-color 0.3s;
+}
+
+button:hover {
+  background-color: #fb8c00; /* Darker orange on hover */
+}
+
+.checkbox input {
+  margin-right: 10px;
+}
+
+@media (max-width: 480px) {
+  main {
+    width: 90%;
+    padding: 20px;
+  }
+
+  h1 {
+    font-size: 1.5rem;
+  }
+}
