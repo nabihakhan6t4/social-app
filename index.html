@@ -3,76 +3,171 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Login</title>
-    <link rel="stylesheet" href="style.css" />
+    <title>Sign In</title>
     <link
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
       rel="stylesheet"
       integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
       crossorigin="anonymous"
     />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.0/css/all.min.css"
+      integrity="sha512-9xKTRVabjVeZmc+GUW8GgSmcREDunMM+Dt/GrzchfN8tkwHizc5RP4Ok/MXFFy5rIjJjzhndFScTceq5e6GvVQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link rel="stylesheet" href="style.css" />
   </head>
+
   <body>
-    <!-- navbar start -->
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-      <div class="container">
-        <a class="navbar-brand" href="#">My Social App</a>
-        <button
-          class="navbar-toggler"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarNav"
-          aria-controls="navbarNav"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-          <ul class="navbar-nav ms-auto">
-            <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="#">Home</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Profile</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Posts</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Logout</a>
-            </li>
-          </ul>
+    <!-- Header Start -->
+    <header>
+      <nav class="navbar navbar-expand-lg navbar-light py-3">
+        <div class="container">
+          <a class="navbar-brand d-flex align-items-center" href="#">
+            My social app
+          </a>
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div
+            class="collapse navbar-collapse justify-content-center"
+            id="navbarSupportedContent"
+          >
+            <ul
+              class="navbar-nav ms-auto mb-2 mb-lg-0 text-center custom-decoration-hover"
+            >
+              <li class="nav-item">
+                <a class="nav-link active" href="home.html">Home</a>
+              </li>
+              <!-- Other links can be here -->
+            </ul>
+            <div class="d-flex align-items-center ms-auto">
+              <div class="nav-item dropdown">
+                <a
+                  class="nav-link dropdown-toggle"
+                  href="#"
+                  role="button"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                  aria-label="User Account"
+                >
+                  <i class="fa-regular fa-user fs-5" id="user-icon">User</i>
+                </a>
+                <ul class="dropdown-menu">
+                  <li>
+                    <a class="dropdown-item" href="signup.html">Sign Up</a>
+                  </li>
+                  <li>
+                    <a class="dropdown-item" href="index.html">Sign In</a>
+                  </li>
+                  <li>
+                    <a class="dropdown-item" href="#" id="signOut">Sign Out</a>
+                  </li>
+                  <li>
+                    <a class="dropdown-item" href="profile.html"
+                      >Update Profile</a
+                    >
+                  </li>
+                  <li>
+                    <a class="dropdown-item" href="#" id="dltAccount"
+                      >Delete Account
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
         </div>
-      </div>
-    </nav>
-    <!-- navbar end -->
+      </nav>
+    </header>
+    <!-- Header End -->
 
-    <!-- form-start -->
-    <div class="container mt-5">
-      <h2>Login to Your Account</h2>
+    <!-- Main Content Start -->
+    <main class="container my-5 bg-custom">
       <form>
-        <div class="mb-3">
-          <label for="email" class="form-label">Email address</label>
-          <input type="email" class="form-control" id="email" required />
-        </div>
-        <div class="mb-3">
-          <label for="password" class="form-label">Password</label>
-          <input type="password" class="form-control" id="password" required />
-        </div>
-        <button type="submit" class="btn btn-primary">Login</button>
-      </form>
-      <div class="mt-3">
-        Don't have an account? <a href="#">Sign up</a> |
-        <a href="#">Forgot Password?</a>
-      </div>
-    </div>
-    <!-- form-end -->
+        <h1 class="h3 mb-3 fw-normal">Log In</h1>
 
+        <!-- Email Field -->
+        <div class="form-floating mb-3">
+          <input
+            type="email"
+            class="form-control"
+            id="signInEmail"
+            placeholder="name@example.com"
+            required
+          />
+          <label for="signInEmail">Email address</label>
+        </div>
+
+        <!-- Password Field -->
+        <div class="form-floating mb-3">
+          <input
+            type="password"
+            class="form-control"
+            id="signInPassword"
+            placeholder="Password"
+            required
+          />
+          <label for="signInPassword">Password</label>
+        </div>
+
+        <!-- Remember Me Checkbox -->
+        <div class="checkbox mb-3">
+          <label>
+            <input type="checkbox" value="remember-me" /> Remember me
+          </label>
+        </div>
+
+        <!-- Sign In Button -->
+        <div class="d-flex justify-content-center align-items-center">
+          <button
+            class="btn-custom w-md-25 w-50 text-center"
+            id="signInBtn"
+            type="button"
+          >
+            Sign In
+          </button>
+        </div>
+
+        <div class="d-flex justify-content-center align-items-center mt-3">
+          <span class="fw-bold fs-3">OR</span>
+        </div>
+
+        <!-- Google Sign In Button -->
+        <div class="d-flex justify-content-center align-items-center mt-3">
+          <button
+            class="btn-custom w-md-25 w-50 text-center"
+            type="button"
+            id="googleBtn"
+          >
+            <i class="fab fa-google mr-2"></i> Sign in with Google
+          </button>
+        </div>
+      </form>
+    </main>
+    <!-- Main Content End -->
+
+    <!-- Include Bootstrap JS (no module required) -->
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
       crossorigin="anonymous"
     ></script>
+
+    <!-- Firebase (module type) should be loaded before login.js -->
+    <script type="module" src="firebase.js"></script>
+
+    <script type="module" src="login.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   </body>
 </html>
