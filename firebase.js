@@ -7,6 +7,8 @@ import {
   signInWithEmailAndPassword,
   onAuthStateChanged,
   sendEmailVerification,
+  RecaptchaVerifier,
+  signInWithPhoneNumber
 } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-auth.js";
 
 // TODO: Add SDKs for Firebase products that you want to use
@@ -34,4 +36,6 @@ export {
   signInWithEmailAndPassword,
   onAuthStateChanged,
   sendEmailVerification,
+  RecaptchaVerifier,
+  signInWithPhoneNumber
 };
