@@ -1,4 +1,9 @@
-import { getAuth, auth, onAuthStateChanged, sendEmailVerification } from "./firebase.js";
+import {
+  getAuth,
+  auth,
+  onAuthStateChanged,
+  sendEmailVerification,
+} from "./firebase.js";
 
 onAuthStateChanged(auth, (user) => {
   if (user) {
@@ -43,73 +48,67 @@ onAuthStateChanged(auth, (user) => {
   }
 });
 
-// Function to show modal dynamically
-function showModal() {
-  Swal.fire({
-    title: 'Verify your phone number',
-    text: 'Enter your phone number to receive OTP',
-    input: 'tel',
-    inputLabel: 'Phone Number',
-    inputPlaceholder: 'Enter your phone number',
-    showCancelButton: true,
-    confirmButtonText: 'Send OTP',
-    preConfirm: (phoneNumber) => {
-      if (!phoneNumber) {
-        Swal.showValidationMessage('Phone number is required');
-        return false;
-      }
-      // Proceed to OTP sending logic (Firebase phone verification)
-      sendPhoneVerification(phoneNumber);
-    }
-  });
-}
+let createBtn = document.getElementById("create");
+let modal = new bootstrap.Modal(document.getElementById("createPostModal"));
+let createPostBtn = document.getElementById("createPostBtn");
+let postContent = document.getElementById("postContent");
+let postCard = document.getElementById("postCard"); // This is the card that will display the user's post content
 
-// Example function to handle phone verification (using Firebase)
-function sendPhoneVerification(phoneNumber) {
-  const appVerifier = new firebase.auth.RecaptchaVerifier('signupBtn', {
-    size: 'invisible',
-  });
+let create = () => {
+  modal.show();
+};
 
-  firebase.auth().signInWithPhoneNumber(phoneNumber, appVerifier)
-    .then((confirmationResult) => {
-      window.confirmationResult = confirmationResult;
-      Swal.fire({
-        title: 'Enter OTP',
-        text: 'We have sent an OTP to your phone.',
-        input: 'text',
-        inputLabel: 'OTP',
-        showCancelButton: true,
-        confirmButtonText: 'Verify OTP',
-        preConfirm: (otp) => {
-          if (!otp) {
-            Swal.showValidationMessage('OTP is required');
-            return false;
-          }
+let createPost = () => {
+  let content = postContent.value.trim();
 
-          // Confirm the OTP
-          confirmationResult.confirm(otp)
-            .then(() => {
-              Swal.fire({
-                title: 'Phone Verified',
-                text: 'Your phone number has been verified successfully!',
-                icon: 'success',
-              });
-            })
-            .catch((error) => {
-              Swal.fire({
-                title: 'Error',
-                text: `OTP verification failed: ${error.message}`,
-                icon: 'error',
-              });
-            });
-        }
-      });
-    })
-    .catch((error) => {
-      Swal.fire({
-        title: 'Error',
-        text: `Error sending OTP: ${error.message}`,
-        icon: 'error',
-      });
-    });
-}
+  if (content === "") {
+    alert("Please write something before posting!");
+  } else {
+    // Get user email (or username if you have it)
+    let userName = auth.currentUser ? auth.currentUser.email : "Anonymous";
+
+    // Replace the card content with the user's post
+    postCard.innerHTML = `
+      <div class="card-header">${userName}'s Post</div>
+      <div class="card-body">
+        <p>${content}</p>
+      </div>
+      <div class="card-footer">
+        <button class="btn btn-danger" id="deletePostBtn">Delete Post</button>
+      </div>
+    `;
+
+    // Close the modal
+    modal.hide();
+
+    // Clear the input field
+    postContent.value = "";
+
+    // Optionally, show a success message or update the UI
+    alert("Post created successfully!");
+
+    // Add event listener for deleting the post
+    document
+      .getElementById("deletePostBtn")
+      .addEventListener("click", deletePost);
+  }
+};
+
+let deletePost = () => {
+  // Reset the card content back to the original state
+  postCard.innerHTML = `
+    <div class="card-header">Create a Post</div>
+    <div class="card-body">
+      <p>Click the button below to create a new post</p>
+    </div>
+    <div class="card-footer d-flex justify-content-center">
+      <button class="round-btn" id="create">+</button>
+    </div>
+  `;
+
+  // Reattach event listener for the create button
+  document.getElementById("create").addEventListener("click", create);
+};
+
+createBtn.addEventListener("click", create);
+createPostBtn.addEventListener("click", createPost);

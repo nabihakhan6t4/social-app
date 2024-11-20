@@ -86,32 +86,22 @@ button:hover {
   }
 }
 
+/* Custom styling for round button */
+.round-btn {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background-color: #007bff; /* Blue background */
+  color: white;
+  font-size: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+.round-btn:hover {
+  background-color: #0056b3; /* Darker blue on hover */
+}

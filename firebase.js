@@ -8,7 +8,9 @@ import {
   onAuthStateChanged,
   sendEmailVerification,
   RecaptchaVerifier,
-  signInWithPhoneNumber
+  signInWithPhoneNumber,
+  GoogleAuthProvider ,
+  signInWithPopup, 
 } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-auth.js";
 
 // TODO: Add SDKs for Firebase products that you want to use
@@ -29,6 +31,8 @@ const app = initializeApp(firebaseConfig);
 
 const auth = getAuth(app);
 
+const provider = new GoogleAuthProvider();
+
 export {
   getAuth,
   auth,
@@ -37,5 +41,9 @@ export {
   onAuthStateChanged,
   sendEmailVerification,
   RecaptchaVerifier,
-  signInWithPhoneNumber
+  signInWithPhoneNumber,
+  GoogleAuthProvider ,
+  signInWithPopup,
+  provider,
+ 
 };
