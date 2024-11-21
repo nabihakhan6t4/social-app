@@ -1,28 +1,99 @@
+:root {
+  --primary-color: #4caf50; /* Green */
+  --secondary-color: #ffffff; /* White */
+  --accent-color: #ff9800; /* Orange */
+  --text-color: #333333; /* Dark Gray */
+  --background-color: #f5f5f5; /* Light Gray */
+}
+
+/* General styling */
+body {
+  background-color: var(--background-color);
+  color: var(--text-color);
+  font-family: "Arial", sans-serif;
+}
+
+/* Sidebar Styling */
+.d-flex {
+  background-color: var(--secondary-color);
+  color: var(--text-color);
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.nav-link {
+  color: var(--text-color);
+  transition: 0.3s;
+}
+
+.nav-link:hover {
+  color: var(--primary-color);
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.nav-item .active {
+  background-color: var(--primary-color);
+  color: var(--secondary-color);
+}
+
+.navbar-brand img {
+  border-radius: 50%;
+  border: 2px solid var(--primary-color);
+}
+
+.navbar-brand svg {
+  fill: var(--primary-color);
+}
+
+/* Navbar Styling */
 .navbar {
-  background-color: var(--primary-color); /* Green background */
+  background-color: var(--primary-color);
 }
 
 .navbar-light .navbar-nav .nav-link {
-  color: var(--secondary-color); /* White text */
+  color: var(--secondary-color);
 }
 
 .navbar-light .navbar-nav .nav-link:hover {
-  color: var(--accent-color); /* Orange color on hover */
+  color: var(--accent-color);
 }
 
 .navbar-toggler-icon {
-  background-color: var(--secondary-color); /* White toggler icon */
+  background-color: var(--secondary-color);
 }
 
-.container {
-  max-width: 600px;
+/* Card Styling */
+.card {
+  margin-top: 20px;
+  background-color: var(--secondary-color);
+  border: 1px solid var(--primary-color);
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
+.card-header {
+  background-color: var(--primary-color);
+  color: var(--secondary-color);
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.card-body {
+  background-color: var(--background-color);
+  color: var(--text-color);
+}
+
+.card-footer {
+  background-color: var(--background-color);
+  text-align: center;
+}
+
+/* Round Button Styling */
 .round-btn {
   width: 80px;
   height: 80px;
-  background-color: var(--primary-color); /* Green background */
-  color: var(--secondary-color); /* White text */
+  background-color: var(--primary-color);
+  color: var(--secondary-color);
   font-size: 36px;
   border-radius: 50%;
   border: none;
@@ -42,26 +113,55 @@
   outline: none;
 }
 
-.card {
-  margin-top: 20px;
-  background-color: var(--background-color); /* Light gray background */
+/* Modal Styling */
+.modal-content {
+  background-color: var(--secondary-color);
+  color: var(--text-color);
+}
+
+.modal-header {
+  background-color: var(--primary-color);
+  color: var(--secondary-color);
+}
+
+.modal-body {
+  background-color: var(--background-color);
+}
+
+.modal-footer {
+  background-color: var(--background-color);
+}
+
+.btn-primary {
+  background-color: var(--primary-color);
   border: none;
-  border-radius: 10px;
-  padding: 20px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.card-header {
-  font-size: 1.5rem;
-  font-weight: bold;
-  color: var(--text-color); /* Dark gray text */
+.btn-primary:hover {
+  background-color: var(--accent-color);
 }
 
-.card-body {
-  font-size: 1rem;
-  color: var(--text-color); /* Dark gray text */
+.btn-secondary {
+  background-color: var(--text-color);
+  color: var(--secondary-color);
 }
 
-.card-footer {
-  text-align: center; /* Center the button */
+.btn-secondary:hover {
+  background-color: var(--accent-color);
+  color: var(--secondary-color);
+}
+
+.nav-link.active {
+  background-color: transparent !important; 
+  color: black !important; 
+}
+
+
+.nav-link {
+  color: black !important;
+}
+
+
+.sidebar {
+  color: white; 
 }

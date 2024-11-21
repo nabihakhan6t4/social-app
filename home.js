@@ -62,7 +62,11 @@ let createPost = () => {
   let content = postContent.value.trim();
 
   if (content === "") {
-    alert("Please write something before posting!");
+    Swal.fire({
+      title: "No Content",
+      text: "Please enter some text to create a post.",
+      icon: "warning",
+    });
   } else {
     // Get user email (or username if you have it)
     let userName = auth.currentUser ? auth.currentUser.email : "Anonymous";
@@ -85,7 +89,11 @@ let createPost = () => {
     postContent.value = "";
 
     // Optionally, show a success message or update the UI
-    alert("Post created successfully!");
+    Swal.fire({
+      title: "Post Created",
+      text: "Your post has been created successfully.",
+      icon: "success",
+    });
 
     // Add event listener for deleting the post
     document
