@@ -1,167 +1,72 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
+
 :root {
-  --primary-color: #4caf50; /* Green */
-  --secondary-color: #ffffff; /* White */
-  --accent-color: #ff9800; /* Orange */
-  --text-color: #333333; /* Dark Gray */
-  --background-color: #f5f5f5; /* Light Gray */
+  --white: #f5f5f5;
+  --black: #000;
+  --gray: #262626;
+  --light-gray: #a8a8a8;
+  --blue: #0095f6;
 }
 
-/* General styling */
+html,
 body {
-  background-color: var(--background-color);
-  color: var(--text-color);
-  font-family: "Arial", sans-serif;
-}
-
-/* Sidebar Styling */
-.d-flex {
-  background-color: var(--secondary-color);
-  color: var(--text-color);
-  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
-}
-
-.nav-link {
-  color: var(--text-color);
-  transition: 0.3s;
-}
-
-.nav-link:hover {
-  color: var(--primary-color);
-  background-color: rgba(0, 0, 0, 0.1);
-}
-
-.nav-item .active {
-  background-color: var(--primary-color);
-  color: var(--secondary-color);
-}
-
-.navbar-brand img {
-  border-radius: 50%;
-  border: 2px solid var(--primary-color);
-}
-
-.navbar-brand svg {
-  fill: var(--primary-color);
-}
-
-/* Navbar Styling */
-.navbar {
-  background-color: var(--primary-color);
-}
-
-.navbar-light .navbar-nav .nav-link {
-  color: var(--secondary-color);
-}
-
-.navbar-light .navbar-nav .nav-link:hover {
-  color: var(--accent-color);
-}
-
-.navbar-toggler-icon {
-  background-color: var(--secondary-color);
-}
-
-/* Card Styling */
-.card {
-  margin-top: 20px;
-  background-color: var(--secondary-color);
-  border: 1px solid var(--primary-color);
-  border-radius: 10px;
-  padding: 20px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-.card-header {
-  background-color: var(--primary-color);
-  color: var(--secondary-color);
-  font-size: 1.5rem;
-  font-weight: bold;
-}
-
-.card-body {
-  background-color: var(--background-color);
-  color: var(--text-color);
-}
-
-.card-footer {
-  background-color: var(--background-color);
-  text-align: center;
-}
-
-/* Round Button Styling */
-.round-btn {
-  width: 80px;
-  height: 80px;
-  background-color: var(--primary-color);
-  color: var(--secondary-color);
-  font-size: 36px;
-  border-radius: 50%;
-  border: none;
+  scroll-behavior: smooth;
+  background: #000;
+  font-family: "Roboto", Arial, Helvetica, sans-serif;
+  color: #ffff;
+  overflow-x: hidden;
   display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  cursor: pointer;
-  transition: transform 0.2s;
+  width: 100vw;
+  margin: 0;
+  padding: 0;
 }
-
-.round-btn:hover {
-  transform: scale(1.1);
-}
-
-.round-btn:focus {
-  outline: none;
-}
-
-/* Modal Styling */
-.modal-content {
-  background-color: var(--secondary-color);
-  color: var(--text-color);
-}
-
-.modal-header {
-  background-color: var(--primary-color);
-  color: var(--secondary-color);
-}
-
-.modal-body {
-  background-color: var(--background-color);
-}
-
-.modal-footer {
-  background-color: var(--background-color);
-}
-
-.btn-primary {
-  background-color: var(--primary-color);
-  border: none;
-}
-
-.btn-primary:hover {
-  background-color: var(--accent-color);
-}
-
-.btn-secondary {
-  background-color: var(--text-color);
-  color: var(--secondary-color);
-}
-
-.btn-secondary:hover {
-  background-color: var(--accent-color);
-  color: var(--secondary-color);
-}
-
-.nav-link.active {
-  background-color: transparent !important; 
-  color: black !important; 
-}
-
-
-.nav-link {
-  color: black !important;
-}
-
 
 .sidebar {
-  color: white; 
+  position: fixed;
+  border-right: 1px solid var(--gray);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 200px;
+  height: 100vh;
+  background-color: var(--black); /* Set background color */
+  padding-top: 1rem;
+}
+
+.upper-container {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+}
+
+.logo {
+  width: 100px;
+  margin: 1rem 0;
+}
+
+.link {
+  display: flex;
+  align-items: center;
+  padding: 0.7rem 0;
+  color: var(--white);
+  font-size: 1rem;
+  text-decoration: none;
+}
+
+.link a {
+  color: var(--white);
+  text-decoration: none;
+}
+
+.link:hover {
+  background-color: var(--gray); /* Add hover effect */
+}
+
+.link i {
+  margin-right: 10px;
+}
+
+.bottom-container {
+  padding: 1rem;
+  color: var(--white);
 }

@@ -1,5 +1,11 @@
-import { getAuth, createUserWithEmailAndPassword ,     } from "./firebase.js"; // Import only necessary methods
+import {
+  createUserWithEmailAndPassword,
+  getAuth,
+  signInWithPhoneNumber,
+  RecaptchaVerifier,
+} from "./firebase.js"; // Import only necessary methods
 
+const auth = getAuth();
 let signupBtn = document.getElementById("signupBtn");
 
 let signup = () => {
@@ -102,5 +108,68 @@ let signup = () => {
 };
 
 signupBtn.addEventListener("click", signup);
+
+// // Initialize reCAPTCHA verifier
+// window.recaptchaVerifier = new RecaptchaVerifier(auth, 'recaptcha-container', {
+//   'size': 'normal',
+//   'callback': (response) => {
+//     // reCAPTCHA solved, allow signInWithPhoneNumber.
+//     // ...
+//   },
+//   'expired-callback': () => {
+//     // Response expired. Ask user to solve reCAPTCHA again.
+//     // ...
+//   }
+// });
+
+// // Get the elements
+// let sendOtpBtn = document.getElementById("sendOtpBtn");
+// let verifyOtpBtn = document.getElementById("verifyOtpBtn");
+
+// // Function to send OTP
+// let sendOtp = () => {
+//   let phoneNumberOTP = document.getElementById("phoneNumberOTP").value;
+//   console.log(`+${phoneNumberOTP}`);
+
+//   // Send OTP via Firebase
+//   signInWithPhoneNumber(auth, `+${phoneNumberOTP}`, recaptchaVerifier)
+//       .then((confirmationResult) => {
+//           // Store the confirmation result for OTP verification
+//           window.confirmationResult = confirmationResult;
+//           console.log("OTP sent, confirmationResult:", confirmationResult);
+//       })
+//       .catch((error) => {
+//           console.log("Error sending OTP:", error);
+//       });
+// };
+
+// // Add click event listener to send OTP button
+// sendOtpBtn.addEventListener("click", sendOtp);
+
+// // Function to verify OTP
+// let verifyOtp = () => {
+//   let otp = document.getElementById("otpCode").value;
+
+//   if (window.confirmationResult) {
+//       window.confirmationResult.confirm(otp)
+//           .then((result) => {
+//               // OTP is verified, user signed in successfully
+//               console.log("User signed in successfully:", result);
+//               alert("OTP verified successfully!");
+//           })
+//           .catch((error) => {
+//               // Handle OTP verification error
+//               console.log("Error verifying OTP:", error);
+//               alert("Failed to verify OTP.");
+//           });
+//   } else {
+//       console.log("No confirmation result found.");
+//       alert("No OTP sent, please try again.");
+//   }
+// };
+
+// // Add click event listener to verify OTP button
+// verifyOtpBtn.addEventListener("click", verifyOtp);
+
 
 

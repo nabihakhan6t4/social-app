@@ -3,6 +3,7 @@ import {
   signInWithEmailAndPassword,
   signInWithPopup,
   GoogleAuthProvider,
+  onAuthStateChanged,
 } from "./firebase.js";
 
 // Initialize Firebase Auth and Google Auth Provider
@@ -93,3 +94,4 @@ let google = () => {
 
 // Add event listener to the Google login button
 googleBtn.addEventListener("click", google);
+

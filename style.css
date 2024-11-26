@@ -64,13 +64,26 @@ button {
   border-radius: 5px;
   padding: 12px;
   font-weight: bold;
+  cursor: pointer;
   transition: background-color 0.3s;
 }
 
 button:hover {
   background-color: #fb8c00; /* Darker orange on hover */
 }
+.btn-custom-2{
+  background-color: #fb8c00; /* Darker orange  */
+  border: none;
+  border-radius: 5px;
+  padding: 12px;
+  font-weight: bold;
+  transition: background-color 0.3s;
+  cursor: pointer;
+}
 
+.btn-custom-2:hover{
+  background-color: var(--accent-color); /* Orange button color */
+}
 .checkbox input {
   margin-right: 10px;
 }
