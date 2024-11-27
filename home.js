@@ -121,4 +121,3 @@ let deletePost = () => {
 createBtn.addEventListener("click", create);
 createPostBtn.addEventListener("click", createPost);
 
-
