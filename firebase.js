@@ -7,11 +7,12 @@ import {
   signInWithEmailAndPassword,
   onAuthStateChanged,
   sendEmailVerification,
-  RecaptchaVerifier ,
+  RecaptchaVerifier,
   signInWithPhoneNumber,
-  GoogleAuthProvider ,
-  signInWithPopup, 
- 
+  GoogleAuthProvider,
+  signInWithPopup,
+  signOut,
+  deleteUser,
 } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-auth.js";
 
 // TODO: Add SDKs for Firebase products that you want to use
@@ -41,11 +42,45 @@ export {
   signInWithEmailAndPassword,
   onAuthStateChanged,
   sendEmailVerification,
-  RecaptchaVerifier ,
+  RecaptchaVerifier,
   signInWithPhoneNumber,
-  GoogleAuthProvider ,
+  GoogleAuthProvider,
   signInWithPopup,
   provider,
-  
- 
+  signOut,
+  deleteUser,
+};
+
+import {
+  getFirestore,
+  doc,
+  setDoc,
+  Timestamp,
+  collection,
+  addDoc,
+  updateDoc,
+  serverTimestamp,
+  arrayUnion,
+  arrayRemove,
+  increment,
+  onSnapshot
+} from "https://www.gstatic.com/firebasejs/11.0.2/firebase-firestore.js";
+
+// Initialize Cloud Firestore and get a reference to the service
+const db = getFirestore(app);
+
+export {
+  getFirestore,
+  db,
+  doc,
+  setDoc,
+  Timestamp,
+  collection,
+  addDoc,
+  updateDoc,
+  serverTimestamp,
+  arrayUnion,
+  arrayRemove,
+  increment,
+  onSnapshot
 };

@@ -47,7 +47,7 @@
           title="Messages"
         >
           <i class="fa-brands fa-facebook-messenger"></i
-          ><a href="#">Messages</a>
+          ><a href="./messeges.html">Messages</a>
         </div>
         <div
           class="link"
@@ -55,7 +55,7 @@
           data-bs-placement="right"
           title="Create"
         >
-          <i class="fa-solid fa-circle-plus"></i><a href="#">Create</a>
+          <i class="fa-solid fa-circle-plus"></i><a href="create.html">Create</a>
         </div>
         <div
           class="link"
@@ -67,12 +67,13 @@
         </div>
         <div
           class="link"
+          id="signOut"
           data-bs-toggle="tooltip"
           data-bs-placement="right"
           title="Sign Out"
         >
           <i class="fa-solid fa-arrow-right-from-bracket"></i
-          ><a href="#">Sign Out</a>
+          ><a href="#" >Sign Out</a>
         </div>
         <div
           class="link delete"
@@ -106,51 +107,87 @@
       <i class="fa-solid fa-trash"></i>
     </div>
 
-    <!-- Main Content -->
-    <div class="main-container">
-      <div class="story-post-container">
-        <!-- Stories Section -->
-        <div class="stories-container">
-          <!-- Story Item (repeat for each story) -->
-          <div class="story">
-            <div class="gradient-border">
-              <img src="images/profile.jpeg" alt="" />
-              <p>username</p>
-            </div>
+    <div class="d-flex custom-justification">
+      <!-- main-content -->
+      <div class="container d-flex w-75 h-100">
+        <div class="d-flex flex-row gap-3">
+          <div
+            class="d-flex flex-column justify-content-center align-items-center"
+          >
+            <img
+              src="images/profile.jpeg"
+              class="rounded-5 gradient-border"
+              alt=""
+            />
+            username1
           </div>
-          <!-- Repeat story blocks as needed -->
-        </div>
-
-        <!-- Posts Section -->
-        <div class="posts-component">
-          <!-- Posts will go here -->
-          <div class="post">
-            <div class="post-header">
-              <div class="post-info-flex">
-                <img src="images/profile.jpeg" alt="" />
-                <p>username</p>
-                <ul>
-                  <li class="list-time">8hrs</li>
-                </ul>
-              </div>
-              <i class="fa-solid fa-ellipsis-h"></i>
-              <img src="images/post.jpeg" alt="" />
-              <div class="posts-icons">
-                <div class="post-icon-left">
-                  <i class="fa-regular fa-heart"></i>
-                  <i class="fa-solid fa-comment"></i>
-                  <i class="fa-solid fa-paper-plane"></i>
-                </div>
-                <i class="fa-solid fa-bookmark"></i>
-              </div>
-            </div>
+          <div
+            class="d-flex flex-column justify-content-center align-items-center"
+          >
+            <img
+              src="images/profile.jpeg"
+              class="rounded-5 gradient-border"
+              alt=""
+            />
+            username2
+          </div>
+          <div
+            class="d-flex flex-column justify-content-center align-items-center"
+          >
+            <img
+              src="images/profile.jpeg"
+              class="rounded-5 gradient-border"
+              alt=""
+            />
+            username3
+          </div>
+          <div
+            class="d-flex flex-column justify-content-center align-items-center"
+          >
+            <img
+              src="images/profile.jpeg"
+              class="rounded-5 gradient-border"
+              alt=""
+            />
+            username4
+          </div>
+          <div
+            class="d-flex flex-column justify-content-center align-items-center"
+          >
+            <img
+              src="images/profile.jpeg"
+              class="rounded-5 gradient-border"
+              alt=""
+            />
+            username5
+          </div>
+          <div
+            class="d-flex flex-column justify-content-center align-items-center"
+          >
+            <img
+              src="images/profile.jpeg"
+              class="rounded-5 gradient-border"
+              alt=""
+            />
+            username6
+          </div>
+          <div
+            class="d-flex flex-column justify-content-center align-items-center"
+          >
+            <img
+              src="images/profile.jpeg"
+              class="rounded-5 gradient-border"
+              alt=""
+            />
+            username7
           </div>
         </div>
       </div>
-      <!-- Profile Suggestions Section -->
-      <div class="profile-suggestions">Profile Suggestions</div>
-    </div>
 
+      <!-- following-section -->
+
+      <div class="container w-25 bg-white">hello</div>
+    </div>
     <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script>
@@ -161,5 +198,9 @@
           new bootstrap.Tooltip(tooltipEl);
         });
     </script>
+      <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script type="module" src="firebase.js"></script>
+    <script type="module" src="home.js"></script>
   </body>
 </html>

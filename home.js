@@ -3,6 +3,8 @@ import {
   auth,
   onAuthStateChanged,
   sendEmailVerification,
+  deleteUser,
+  signOut,
 } from "./firebase.js";
 
 onAuthStateChanged(auth, (user) => {
@@ -121,3 +123,40 @@ let deletePost = () => {
 createBtn.addEventListener("click", create);
 createPostBtn.addEventListener("click", createPost);
 
+
+
+
+let signOutBtn = document.getElementById("signOut");
+
+let signout = () => {
+  // Check if the user is authenticated
+  const user = auth.currentUser;
+
+  if (user) {
+    // User is signed in, proceed with sign out
+    signOut(auth)
+      .then(() => {
+        // Signed out successfully
+        Swal.fire("Success", "Signed out successfully!", "success");
+
+        // Redirect to login page after 2 seconds
+        setTimeout(() => {
+          window.location.href = "./index.html"; // Adjust the URL for the login page if needed
+        }, 4000); // Delay for 4 seconds
+      })
+      .catch((error) => {
+        // Handle sign-out error
+        Swal.fire(
+          "Error",
+          "Something went wrong during sign-out. Please try again.",
+          "error"
+        );
+        console.log(error);
+      });
+  } else {
+    // No user is signed in
+    Swal.fire("Error", "No user is currently signed in.", "error");
+  }
+};
+
+signOutBtn.addEventListener("click", signout);
