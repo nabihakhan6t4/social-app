@@ -13,6 +13,7 @@ import {
   signInWithPopup,
   signOut,
   deleteUser,
+  fetchSignInMethodsForEmail
 } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-auth.js";
 
 // TODO: Add SDKs for Firebase products that you want to use
@@ -82,5 +83,6 @@ export {
   arrayUnion,
   arrayRemove,
   increment,
-  onSnapshot
+  onSnapshot,
+  fetchSignInMethodsForEmail
 };
