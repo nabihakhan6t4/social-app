@@ -2,83 +2,65 @@ import {
   getAuth,
   sendEmailVerification,
   fetchSignInMethodsForEmail,
-  onAuthStateChanged
+  onAuthStateChanged,
 } from "./firebase.js";
 
-// Initialize Firebase Auth
 const auth = getAuth();
 
-// Listen for authentication state changes
+// Check if user came from signup
+const urlParams = new URLSearchParams(window.location.search);
+const isFromSignup = urlParams.get("from") === "signup";
+
 onAuthStateChanged(auth, (user) => {
   if (user) {
     // User is signed in
-    const uid = user.uid;
-    console.log(user);
-
-    // Check if the user's email is verified
     if (!user.emailVerified) {
+      // Restrict access if email is not verified
       Swal.fire({
-        title: "Warning",
-        text: "Please verify your email.",
-        icon: "warning",
-        confirmButtonText: "Click here",
+        title: "Access Denied",
+        text: "Your email is not verified. Please verify your email to proceed.",
+        icon: "error",
       }).then(() => {
-        // Get the user's email
-        const email = user.email;
-
-        // Validate email format before checking if it exists
-        if (/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(email)) {
-          // Check if email is already in use (email exists)
-          fetchSignInMethodsForEmail(auth, email)
-            .then((methods) => {
-              if (methods.length > 0) {
-                // Email exists, proceed with sending verification
-                sendEmailVerification(auth.currentUser)
-                  .then(() => {
-                    Swal.fire({
-                      title: "Verification Sent",
-                      text: "A verification email has been sent to your inbox. Please check your email.",
-                      icon: "success",
-                    });
-                  })
-                  .catch((error) => {
-                    Swal.fire({
-                      title: "Error",
-                      text: `There was an error sending the verification email: ${error.message}`,
-                      icon: "error",
-                    });
-                  });
-              } else {
-                // Email doesn't exist in the system
-                Swal.fire({
-                  title: "Email Not Found",
-                  text: "This email is not valid. Please use a correct email.",
-                  icon: "warning",
-                }).then(() => {
-                  window.location.href = "./signup.html"; // Redirect to sign-up page
-                });
-              }
-            })
-            .catch((error) => {
-              // Error while checking email existence
-              Swal.fire({
-                title: "Error",
-                text: `An error occurred while checking the email: ${error.message}`,
-                icon: "error",
-              });
+        sendEmailVerification(user)
+          .then(() => {
+            Swal.fire({
+              title: "Verification Sent",
+              text: "A verification email has been sent to your inbox. Please verify to continue.",
+              icon: "success",
+            }).then(() => {
+              auth.signOut(); // Log the user out
+              window.location.href = "./login.html"; // Redirect to login page
             });
-        } else {
-          // If email format is invalid
-          Swal.fire({
-            title: "Invalid Email",
-            text: "Please enter a valid email to receive the verification.",
-            icon: "warning",
+          })
+          .catch((error) => {
+            Swal.fire({
+              title: "Error",
+              text: `Failed to send verification email: ${error.message}`,
+              icon: "error",
+            });
           });
-        }
       });
+    } else {
+      // Email is verified
+      if (isFromSignup) {
+        // Signup Case
+        Swal.fire({
+          title: "Welcome!",
+          text: "Your email is verified. Enjoy using our app!",
+          icon: "success",
+        });
+      } else {
+        // Login Case
+        Swal.fire({
+          title: "Welcome Back!",
+          text: "You are successfully logged in.",
+          icon: "success",
+        });
+      }
+      console.log("User is signed in and email is verified. Proceeding to home page.");
     }
   } else {
     // User is signed out
-    // Handle the sign-out logic or redirect to login page
+    window.location.href = "./index.html"; // Redirect to login page
   }
 });

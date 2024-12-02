@@ -1,68 +1,215 @@
-$(document).ready(function() {
-    // Code inside this function runs when the document is fully loaded
-    // The $ symbol is a shortcut for jQuery, a JavaScript library
-    // $(document).ready ensures that the code runs only after the DOM is fully loaded
+// Frontend (Client-side) example:
+import {
+  auth,
+  db,
+  onAuthStateChanged,
+  collection,
+  addDoc,
+  onSnapshot,
+  query,
+  orderBy,
+  where,
+  doc,
+  getDoc,
+  setDoc,
+} from "./firebase.js";
 
-    // Event handler for click event on send button
-    $('#send-btn').click(function() {
-        sendMessage(); // Call the sendMessage function when the button is clicked
-    });
+// UI Elements
+const usersList = document.getElementById("usersList");
+const messagesContainer = document.getElementById("messagesContainer");
+const messageInput = document.getElementById("messageInput");
+const sendMessageBtn = document.getElementById("sendMessageBtn");
 
-    // Event handler for keypress event in the message input field
-    $('#message-input').keypress(function(e) {
-        if (e.which === 13) { // Check if the Enter key (key code 13) is pressed
-            sendMessage(); // Call the sendMessage function when Enter key is pressed
-        }
-    });
+let currentUser = null;
+let selectedUser = null;
 
-    // Function to handle sending messages
-    function sendMessage() {
-        var message = $('#message-input').val(); // Get the value of the message input field
-        if (message.trim() !== '') { // Check if the message is not empty or just whitespace
-            appendMessage('user', message); // Append the user message to the chat
-            $('#message-input').val(''); // Clear the input field
-            setTimeout(function() { // Delay the bot response by 1000 milliseconds (1 second)
-                appendMessage('bot', getBotResponse(message)); // Append the bot response to the chat
-            }, 1000);
-        }
-    }
-
-    // Function to append messages to the chat window
-    function appendMessage(sender, message) {
-        // Determine the CSS class based on the sender (user or bot)
-        var messageClass = sender === 'user' ? 'message user' : 'message bot';
-        // Create HTML for the message
-        var messageElement = `
-            <div class="${messageClass}">
-                <div class="message-content">${message}</div>
-            </div>
-        `;
-        $('.messages').append(messageElement); // Append the message HTML to the chat window
-        // Scroll to the bottom of the chat window to show the latest message
-        $('.chatbox-body').scrollTop($('.chatbox-body')[0].scrollHeight);
-    }
-
-    // Function to generate bot responses based on user messages
-    function getBotResponse(message) {
-        // Convert message to lowercase for case-insensitive comparison
-        var lowerCaseMessage = message.toLowerCase();
-
-        // Simple bot response logic
-        if (lowerCaseMessage.includes('hello') || lowerCaseMessage.includes('hi') || lowerCaseMessage.includes('assalamualaikum')) {
-            return 'Hello! How can I help you today?'; // Response for greetings
-        } else if (lowerCaseMessage.includes('how are you')) {
-            return 'I am fine thanks for asking. What about you? 🐺'; // Response for asking about the bot's well-being
-        }else if (lowerCaseMessage.includes('i am fine')) {
-            return 'good to hear this 🐺'; 
-        }  
-        else if (lowerCaseMessage.includes('okay bye')) {
-            return 'Okay, goodbye! Take care!! 😊👋'; // Response for saying goodbye
-        }
-        return 'Sorry, I did not understand that.'; // Default response if no other condition is met
-    }
-
-    // Event handler for click event on chatbox close button
-    $('.chatbox-close').click(function() {
-        $('.chatbox').hide(); // Hide the chatbox when the close button is clicked
-    });
+// Listen for authentication state changes
+onAuthStateChanged(auth, (user) => {
+  if (user) {
+    currentUser = user;
+    console.log("User logged in:", currentUser);
+    addUserIfNotExists(user); // Ensure user is added if not present in Firestore
+    loadUsers(); // Load the user list after login
+    loadMessagesForSelectedUser(); // Load messages only after the user is authenticated
+  } else {
+    currentUser = null;
+    console.log("User not logged in");
+  }
 });
+
+// Ensure user is added to Firestore if not already present
+const addUserIfNotExists = async (user) => {
+  try {
+    const userRef = doc(db, "users", user.uid);
+    const userDoc = await getDoc(userRef);
+
+    if (!userDoc.exists()) {
+      if (!user.displayName) {
+        const newName = prompt("Please enter your name:");
+        try {
+          await user.updateProfile({ displayName: newName });
+          console.log("Profile updated successfully!");
+        } catch (error) {
+          console.error("Error updating profile:", error);
+        }
+      }
+      await setDoc(userRef, {
+        name: user.displayName || "Unnamed",
+        email: user.email,
+      });
+    }
+  } catch (error) {
+    console.error("Error adding user to Firestore:", error);
+  }
+};
+
+// Load users list
+async function loadUsers() {
+  if (!currentUser) return;
+
+  const usersRef = collection(db, "users");
+  const q = query(usersRef);
+
+  onSnapshot(q, (querySnapshot) => {
+    usersList.innerHTML = ""; // Clear the list before populating
+
+    querySnapshot.forEach((doc) => {
+      const userData = doc.data();
+      const userItem = document.createElement("li");
+      userItem.textContent = userData.name;
+      userItem.classList.add("user-item");
+      userItem.addEventListener("click", () => startChat(doc.id)); // Start chat when clicked
+      usersList.appendChild(userItem);
+    });
+  });
+}
+
+// Start chat with selected user
+function startChat(userId) {
+  selectedUser = userId;
+  messagesContainer.innerHTML = ""; // Clear previous messages
+  loadMessages(userId); // Load messages for selected user
+}
+
+// Load messages between current user and selected user
+function loadMessages(userId) {
+  if (!currentUser) return;
+
+  const messagesRef = collection(db, "messages");
+  const q = query(
+    messagesRef,
+    where("senderId", "in", [currentUser.uid, userId]),
+    where("receiverId", "in", [currentUser.uid, userId]),
+    orderBy("timestamp")
+  );
+
+  onSnapshot(q, (querySnapshot) => {
+    messagesContainer.innerHTML = ""; // Clear previous messages
+
+    querySnapshot.forEach((doc) => {
+      const messageData = doc.data();
+      const messageDiv = document.createElement("div");
+      messageDiv.classList.add("message");
+
+      if (messageData.senderId === currentUser.uid) {
+        messageDiv.classList.add("sender");
+      } else {
+        messageDiv.classList.add("receiver");
+      }
+
+      messageDiv.textContent = messageData.message;
+      messagesContainer.appendChild(messageDiv);
+    });
+  });
+}
+
+// Send message
+sendMessageBtn.addEventListener("click", async () => {
+  if (selectedUser === null) {
+    alert("Select a user to chat with.");
+    return;
+  }
+
+  const message = messageInput.value.trim();
+  if (message === "") return;
+
+  try {
+    await addDoc(collection(db, "messages"), {
+      senderId: currentUser.uid,
+      receiverId: selectedUser,
+      message: message,
+      timestamp: new Date().toISOString(),
+    });
+    messageInput.value = ""; // Clear the input field
+  } catch (e) {
+    console.error("Error sending message:", e);
+  }
+});
+
+// Disable the send button if input is empty
+messageInput.addEventListener("input", () => {
+  sendMessageBtn.disabled = !messageInput.value.trim();
+});
+
+// Load messages for the currently selected user
+function loadMessagesForSelectedUser() {
+  if (!currentUser || !selectedUser) return;
+
+  const messagesRef = collection(db, "messages");
+  const q = query(
+    messagesRef,
+    where("senderId", "in", [currentUser.uid, selectedUser]),
+    where("receiverId", "in", [currentUser.uid, selectedUser]),
+    orderBy("timestamp")
+  );
+
+  onSnapshot(q, (querySnapshot) => {
+    querySnapshot.forEach((doc) => {
+      console.log("Message:", doc.data());
+    });
+  });
+}
+
+
+// const functions = require('firebase-functions');
+// const admin = require('firebase-admin');
+// const sendGrid = require('@sendgrid/mail');
+
+// admin.initializeApp();
+// sendGrid.setApiKey('YOUR_SENDGRID_API_KEY');
+
+// exports.sendMessageEmail = functions.firestore
+//   .document('messages/{messageId}')
+//   .onCreate(async (snapshot, context) => {
+//     const message = snapshot.data();
+//     const senderId = message.senderId;
+//     const receiverId = message.receiverId;
+
+//     try {
+//       const senderDoc = await admin.firestore().collection('users').doc(senderId).get();
+//       const receiverDoc = await admin.firestore().collection('users').doc(receiverId).get();
+
+//       const senderEmail = senderDoc.data().email;
+//       const receiverEmail = receiverDoc.data().email;
+
+//       const msg = {
+//         to: receiverEmail,
+//         from: senderEmail,
+//         subject: `New message from ${senderDoc.data().name}`,
+//         text: message.message,
+//       };
+
+//       await sendGrid.send(msg);
+//       console.log('Email sent to:', receiverEmail);
+//     } catch (error) {
+//       console.error('Error sending email:', error);
+//     }
+//   });
+
+  
+//   admin.initializeApp();
+  
+//   exports.helloWorld = functions.https.onRequest((req, res) => {
+//     res.send("Hello, world!");
+//   });
+  
