@@ -227,3 +227,43 @@ a:hover {
   display: flex;justify-content: space-around;
   flex-direction: row;
 }
+
+
+@media (max-width: 767px) {
+  .sidebar .link a {
+    display: none;
+  }
+  .sidebar .link i {
+    display: inline-block;
+  }
+}
+/* For small screens, hide the text and only show the icon */
+@media (max-width: 767px) {
+  .sidebar .link a {
+    display: none; /* Hide text */
+  }
+  .sidebar .link i {
+    display: inline-block; /* Show icon */
+    font-size: 24px; /* Adjust icon size */
+  }
+}
+
+/* For larger screens, show both icon and text */
+@media (min-width: 768px) {
+  .sidebar .link a {
+    display: inline-block; /* Show text */
+  }
+  .sidebar .link i {
+    display: inline-block; /* Show icon */
+  }
+}
+
+/* Flexbox for better alignment */
+.sidebar .link {
+  display: flex;
+  align-items: center;
+}
+
+.sidebar .link i {
+  margin-right: 10px; /* Space between icon and text */
+}

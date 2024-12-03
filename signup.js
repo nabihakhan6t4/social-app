@@ -14,9 +14,7 @@ let signup = async () => {
   const name = document.getElementById("displayName").value.trim();
   const email = document.getElementById("signupEmail").value.trim();
   const password = document.getElementById("signupPassword").value.trim();
-  const confirmPassword = document
-    .getElementById("signupConfirmPassword")
-    .value.trim();
+  const confirmPassword = document.getElementById("signupConfirmPassword").value.trim();
   const phoneNum = document.getElementById("phoneNumber").value.trim();
 
   // Validation
@@ -42,25 +40,32 @@ let signup = async () => {
   }
 
   try {
-    const userCredential = await createUserWithEmailAndPassword(
-      auth,
-      email,
-      password
-    );
+    // Create user with email and password
+    const userCredential = await createUserWithEmailAndPassword(auth, email, password);
     const user = userCredential.user;
 
     // Save user data to Firestore
     await setDoc(doc(db, "users", user.uid), {
       uid: user.uid,
       name: name,
-      email: user.email,
+      email: email,
       phone: phoneNum,
     });
 
+    // Check if the verification button exists before disabling it
+    let sendVerificationBtn = document.getElementById("sendVerification");
+    if (sendVerificationBtn) {
+      sendVerificationBtn.disabled = true; 
+      sendVerificationBtn.innerText = "Sending...";
+    }
+
+    // Send email verification
+    await sendEmailVerification(user);
+    
     // SweetAlert for successful signup
     Swal.fire({
       title: "Signup Successful!",
-      text: "Redirecting to the home page...",
+      text: "A verification email has been sent. Redirecting to the home page...",
       icon: "success",
       timer: 2000,
       showConfirmButton: false,
@@ -68,6 +73,7 @@ let signup = async () => {
       // Redirect to home page
       window.location.href = "home.html"; // Replace with your home page
     });
+
   } catch (error) {
     Swal.fire("Error", error.message, "error");
   }

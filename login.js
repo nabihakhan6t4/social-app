@@ -4,7 +4,13 @@ import {
   signInWithPopup,
   GoogleAuthProvider,
   onAuthStateChanged,
+  setDoc,
+  doc,
+  db,
+  getDoc, 
 } from "./firebase.js";
+
+
 
 // Initialize Firebase Auth and Google Auth Provider
 const auth = getAuth();
@@ -16,7 +22,7 @@ let signInEmail = document.getElementById("signInEmail");
 let signInPassword = document.getElementById("signInPassword");
 
 // Sign-in function (Email/Password)
-let signIn = () => {
+let signIn = async () => {
   let email = signInEmail.value.trim();
   let password = signInPassword.value.trim();
 
@@ -26,30 +32,41 @@ let signIn = () => {
     return;
   }
 
-  signInWithEmailAndPassword(auth, email, password)
-    .then((userCredential) => {
-      // Signed in successfully
-      const user = userCredential.user;
-      console.log("User logged in: ", user);
-      Swal.fire("Success", "Login successful!", "success");
+  try {
+    // Sign in with email and password
+    const userCredential = await signInWithEmailAndPassword(auth, email, password);
+    const user = userCredential.user;
 
-      // Redirect or perform any other action you want here
-      setTimeout(() => {
-        window.location.href = "home.html"; // Adjust the URL to your desired page
-      }, 2000);
-    })
-    .catch((error) => {
-      const errorCode = error.code;
-      const errorMessage = error.message;
-      console.error(errorCode, errorMessage);
+    // Check if user exists in Firestore
+    const userDocRef = doc(db, "users", user.uid);
+    const userDoc = await getDoc(userDocRef);
 
-      // Show error to user using SweetAlert
+    if (!userDoc.exists()) {
+      // User is authenticated but not in Firestore
       Swal.fire(
         "Error",
-        "Login failed. Please check your credentials.",
+        "Your account is not registered. Please sign up first.",
         "error"
       );
-    });
+      return;
+    }
+
+    // User exists in Firestore, proceed with login
+    console.log("User logged in and data exists:", userDoc.data());
+    Swal.fire("Success", "Login successful!", "success");
+
+    // Redirect or perform any other action you want here
+    setTimeout(() => {
+      window.location.href = "home.html"; // Adjust the URL to your desired page
+    }, 2000);
+  } catch (error) {
+    const errorCode = error.code;
+    const errorMessage = error.message;
+    console.error(errorCode, errorMessage);
+
+    // Show error to user using SweetAlert
+    Swal.fire("Error", "Login failed. Please check your credentials.", "error");
+  }
 };
 
 // Add event listener to the sign-in button
@@ -94,4 +111,3 @@ let google = () => {
 
 // Add event listener to the Google login button
 googleBtn.addEventListener("click", google);
-
