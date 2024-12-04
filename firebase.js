@@ -69,7 +69,7 @@ import {
   query,
   where,
   getDoc,
- 
+
 } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-firestore.js";
 
 // Initialize Cloud Firestore and get a reference to the service
@@ -94,5 +94,6 @@ export {
   query,
   where,
   getDoc,
- 
+
 };
+

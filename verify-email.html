@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Email Verification</title>
+
+    <!-- Firebase SDK for JavaScript (Module version) -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.21.0/firebase-app.js";
+        import { getAuth, onAuthStateChanged, sendEmailVerification } from "https://www.gstatic.com/firebasejs/9.21.0/firebase-auth.js";
+        import * as Swal from "https://cdn.jsdelivr.net/npm/sweetalert2@11.0.10/dist/sweetalert2.all.min.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyBz0Qs91xvvdLTNfVfBGIBDxYt9igjmgfs",
+            authDomain: "social-app-47eb4.firebaseapp.com",
+            projectId: "social-app-47eb4",
+            storageBucket: "social-app-47eb4.firebasestorage.app",
+            messagingSenderId: "80538955886",
+            appId: "1:80538955886:web:bb28c3f70bee282466767f",
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+
+        // Check if the user is logged in and their email is verified
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                if (!user.emailVerified) {
+                    Swal.fire("Please verify your email before proceeding.");
+                } else {
+                    window.location.href = "home.html"; // Redirect to home if email is verified
+                }
+            } else {
+                window.location.href = "index.html"; // Redirect to login if not logged in
+            }
+        });
+
+        // Manual email verification check
+        document.getElementById("checkVerificationBtn").addEventListener("click", () => {
+            const user = auth.currentUser;
+            if (user && user.emailVerified) {
+                Swal.fire("Email Verified", "Your email has been verified!", "success")
+                    .then(() => {
+                        window.location.href = "home.html";
+                    });
+            } else {
+                Swal.fire("Email Not Verified", "Please check your email inbox and verify your email.", "warning");
+            }
+        });
+    </script>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 100px;
+        }
+        .message {
+            font-size: 20px;
+            margin-bottom: 20px;
+        }
+        .btn {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        .btn:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="message">
+        <h2>Please verify your email address</h2>
+        <p>A verification email has been sent to your inbox. Please check your email and verify your account to continue.</p>
+    </div>
+
+    <button class="btn" id="checkVerificationBtn">Check Email Verification</button>
+
+</body>
+</html>

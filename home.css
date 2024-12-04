@@ -1,269 +1,90 @@
-:root {
-  --white: #f9f9f9;
-  --black: #1e1e1e;
-  --gray: #2d2d2d;
-  --light-gray: #757575;
-  --blue: #3b82f6;
-  --hover-bg: #373737;
-  --delete-red: #e63946;
-  --active-bg: #2c8ef4;
-  --indicator: #f9f9f9;
-  --button-bg: #3b82f6;
-  --button-hover: #4a97f7;
-}
-
-html,
-body {
-  scroll-behavior: smooth;
-  background: var(--black);
-  font-family: "Roboto", Arial, Helvetica, sans-serif;
-  color: var(--white);
-  margin: 0;
-  padding: 0;
-  overflow-x: hidden;
-}
-
-a {
-  color: var(--white);
-  text-decoration: none;
-  transition: opacity 0.3s ease, transform 0.3s ease;
-}
-
-a:hover {
-  opacity: 0.8;
-  transform: scale(1.02);
-}
-
-/* Sidebar Styles */
+/* Sidebar Styling */
 .sidebar {
-  position: fixed;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  width: 232px;
   height: 100vh;
-  background-color: var(--gray);
-  border-right: 1px solid var(--light-gray);
-  padding: 1rem;
-  transition: width 0.3s ease;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 250px;
+  background-color: #f8f9fa;
+  transition: all 0.3s ease;
   z-index: 1000;
 }
 
-.logo-container {
-  display: flex;
-  justify-content: center;
-  margin-bottom: 1.5rem; /* Reduced the margin to balance space */
+.sidebar .logo-container {
+  background-color: #ffffff; /* Background color for the logo section */
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
 }
 
-.logo {
-  width: 100px; /* Adjusted the logo size */
+.sidebar .logo-container img {
+  max-width: 100px; /* Adjust logo size */
+  height: auto;
 }
 
-.upper-container {
-  padding: 0 1rem;
-  display: flex;
-  flex-direction: column;
-}
-
-.link {
-  display: flex;
-  align-items: center;
-  padding: 0.8rem 1rem;
-  margin: 0.5rem 0;
-  border-radius: 8px;
-  transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
-}
-
-.link.active {
-  background-color: var(--active-bg);
-  color: var(--white);
-  position: relative;
-}
-
-.link.active::before {
-  content: "";
-  position: absolute;
-  left: 0;
-  width: 5px;
-  height: 100%;
-  background-color: var(--indicator);
-  border-radius: 0 4px 4px 0;
-}
-
-.link i {
-  margin-right: 10px;
-  font-size: 1.2rem;
-  transition: transform 0.3s ease;
-}
-
-.link:hover {
-  background-color: var(--hover-bg);
-  transform: translateX(5px);
-}
-
-.link:hover i {
-  transform: scale(1.3);
-  box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
-}
-
-.link.delete {
-  color: var(--delete-red);
-}
-
-.link.delete:hover {
-  background-color: var(--hover-bg);
-}
-
-/* Bottom Navbar Styles */
-.bottom-navbar {
-  display: none;
-}
-
-.bottom-navbar i {
-  margin: 0 2px;
-  font-size: 1.5rem;
-  padding: 0.5rem;
-  color: var(--white);
-  transition: background-color 0.3s ease, transform 0.3s ease;
-}
-
-.bottom-navbar i:hover {
-  background-color: var(--hover-bg);
-  border-radius: 50%;
-  transform: scale(1.1);
-}
-
-.logo2 {
-  display: none;
-}
-
-
-.gradient-border {
-  width: 60px;
-  height: 60px;
-  border-radius: 50%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  background: radial-gradient(
-    circle at 30% 107%,
-    #fdf497 0%,
-    #fdf497 5%,
-    #fd5949 45%,
-    #e6249f 60%,
-    #205eeb 90%
-  );
-  padding: 3px;
-  /* position: relative; */
-}
-
-/* Media Queries */
-@media screen and (max-width: 900px) {
-  .sidebar {
-    width: 70px; /* Slightly larger width for better usability */
-  }
-
-  .upper-container {
-    align-items: center;
-  }
-
-  .link a {
-    display: none;
-  }
-
-  .logo {
-    display: none;
-  }
-
-  .logo2 {
-    display: block;
-    width: 50px; /* Increased width for mobile screens */
-    margin-bottom: 1rem;
-  }
-
-  .link i {
-    margin-right: 0;
-    text-align: center;
-  }
-
-  .bottom-container {
-    display: flex;
-    justify-content: center;
-  }
-}
-
-@media screen and (max-width: 600px) {
-  .sidebar {
-    display: none;
-  }
-
-  .bottom-navbar {
-    display: flex;
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    padding: 1rem;
-    justify-content: space-between;
-    align-items: center;
-    border-top: 1px solid var(--gray);
-    background-color: var(--gray);
-  }
-
-  .bottom-navbar i {
-    font-size: 2rem; /* Increased font size for better readability */
-  }
-
-  
-}
-.h-100{
-  height: 100vh !important;
-}
-
-
-
-.custom-justification{
-  display: flex;justify-content: space-around;
-  flex-direction: row;
-}
-
-
-@media (max-width: 767px) {
-  .sidebar .link a {
-    display: none;
-  }
-  .sidebar .link i {
-    display: inline-block;
-  }
-}
-/* For small screens, hide the text and only show the icon */
-@media (max-width: 767px) {
-  .sidebar .link a {
-    display: none; /* Hide text */
-  }
-  .sidebar .link i {
-    display: inline-block; /* Show icon */
-    font-size: 24px; /* Adjust icon size */
-  }
-}
-
-/* For larger screens, show both icon and text */
-@media (min-width: 768px) {
-  .sidebar .link a {
-    display: inline-block; /* Show text */
-  }
-  .sidebar .link i {
-    display: inline-block; /* Show icon */
-  }
-}
-
-/* Flexbox for better alignment */
+/* Sidebar Links */
 .sidebar .link {
+  padding: 15px;
   display: flex;
   align-items: center;
+  text-decoration: none;
+  color: #333;
+  font-size: 16px;
+  transition: background-color 0.2s;
+}
+
+.sidebar .link:hover {
+  background-color: #e9ecef;
+  color: #007bff;
 }
 
 .sidebar .link i {
-  margin-right: 10px; /* Space between icon and text */
+  margin-right: 10px;
+}
+
+.sidebar .active {
+  background-color: #007bff;
+  color: #fff;
+}
+
+/* Bottom Navbar */
+.bottom-navbar {
+  display: none;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background-color: #f8f9fa;
+  justify-content: space-around;
+  align-items: center;
+  padding: 10px 0;
+  z-index: 1000;
+}
+
+.bottom-navbar i {
+  font-size: 20px;
+  color: #333;
+}
+
+.bottom-navbar i:hover {
+  color: #007bff;
+}
+
+/* Responsive Styling */
+@media (max-width: 768px) {
+  .sidebar {
+    display: none; /* Sidebar hides on smaller screens */
+  }
+
+  .bottom-navbar {
+    display: flex; /* Bottom navbar becomes visible */
+  }
+}
+
+@media (min-width: 769px) {
+  .bottom-navbar {
+    display: none; /* Bottom navbar hides on larger screens */
+  }
+
+  .sidebar {
+    display: block; /* Sidebar is visible */
+  }
 }
