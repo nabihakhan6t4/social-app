@@ -13,7 +13,9 @@ import {
   signInWithPopup,
   signOut,
   deleteUser,
-  fetchSignInMethodsForEmail
+  fetchSignInMethodsForEmail,
+  updateProfile,
+  updateEmail,
 } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-auth.js";
 
 // TODO: Add SDKs for Firebase products that you want to use
@@ -50,6 +52,8 @@ export {
   provider,
   signOut,
   deleteUser,
+  updateEmail,
+  updateProfile
 };
 
 import {
@@ -69,7 +73,6 @@ import {
   query,
   where,
   getDoc,
-
 } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-firestore.js";
 
 // Initialize Cloud Firestore and get a reference to the service
@@ -83,7 +86,6 @@ export {
   Timestamp,
   collection,
   addDoc,
-  updateDoc,
   serverTimestamp,
   arrayUnion,
   arrayRemove,
@@ -94,6 +96,17 @@ export {
   query,
   where,
   getDoc,
-
+  updateDoc,
 };
 
+import {
+  getStorage,
+  ref,
+  uploadBytes,
+  getDownloadURL,
+} from "https://www.gstatic.com/firebasejs/11.0.2/firebase-storage.js";
+
+// Initialize Cloud Storage and get a reference to the service
+const storage = getStorage(app);
+
+export { storage, getStorage, ref, uploadBytes, getDownloadURL  };

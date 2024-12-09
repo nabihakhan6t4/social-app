@@ -1,0 +1,113 @@
+/* General Body Styles */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+  }
+  
+  /* Main Content */
+  .container-fluid {
+    margin-left: 250px; /* Sidebar width */
+    padding: 30px;
+  }
+  
+  h1 {
+    color: #333;
+  }
+  
+  /* Profile Card */
+  .card {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .card-header {
+    background-color: #f8f9fa;
+    border-bottom: 1px solid #e0e0e0;
+    text-align: center;
+  }
+  
+  .card-header img {
+    border: 5px solid #f0f0f0;
+    margin-bottom: 15px;
+  }
+  
+  .card-body {
+    padding: 20px;
+  }
+  
+  .card-body h5 {
+    color: #333;
+    font-size: 18px;
+    margin-bottom: 15px;
+  }
+  
+  .card-body ul li {
+    font-size: 16px;
+    margin-bottom: 10px;
+    color: #666;
+  }
+  
+  .card-body .btn {
+    margin-top: 20px;
+  }
+  
+  /* Edit Profile Modal */
+  .modal-content {
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .modal-header {
+    background-color: #007bff;
+    color: #fff;
+    border-radius: 10px 10px 0 0;
+  }
+  
+  .modal-header .btn-close {
+    color: #fff;
+  }
+  
+  .modal-body {
+    padding: 20px;
+  }
+  
+  .modal-body .form-label {
+    font-size: 16px;
+    margin-bottom: 8px;
+  }
+  
+  .modal-body .form-control {
+    border-radius: 5px;
+    padding: 10px;
+  }
+  
+  .modal-body button {
+    width: 100%;
+    margin-top: 15px;
+    padding: 10px;
+    background-color: #007bff;
+    border: none;
+    color: #fff;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .modal-body button:hover {
+    background-color: #0056b3;
+  }
+  
+  /* Media Queries for Responsive Design */
+  @media (max-width: 768px) {
+    .container-fluid {
+      margin-left: 0;
+      padding: 20px;
+    }
+  
+    .card {
+      margin-top: 20px;
+    }
+  }
+  

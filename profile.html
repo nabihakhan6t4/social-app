@@ -19,6 +19,8 @@
 
     <!-- Custom CSS -->
     <link rel="stylesheet" href="home.css" />
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="profile.css" />
   </head>
 
   <body>
@@ -66,7 +68,7 @@
             <div class="card-header text-center">
               <img
                 id="profilePic"
-                src="images/profile-pic.jpg"
+                src="images/profile.jpeg"
                 alt="User Profile Picture"
                 class="rounded-circle"
                 width="120"
@@ -95,7 +97,11 @@
                   <span id="memberSince">January 2021</span>
                 </li>
               </ul>
-              <a href="edit-profile.html" class="btn btn-primary"
+              <a
+                href="#"
+                class="btn btn-primary"
+                data-bs-toggle="modal"
+                data-bs-target="#editProfileModal"
                 >Edit Profile</a
               >
             </div>
@@ -104,26 +110,75 @@
       </div>
     </div>
 
-    <!-- Bottom Navbar (for small screens) -->
-    <div class="bottom-navbar d-md-none fixed-bottom">
-      <div class="row">
-        <div class="col text-center">
-          <i class="fa-solid fa-house"></i>
-        </div>
-        <div class="col text-center">
-          <i class="fa-brands fa-facebook-messenger"></i>
-        </div>
-        <div class="col text-center">
-          <i class="fa-solid fa-circle-plus"></i>
-        </div>
-        <div class="col text-center">
-          <i class="fa-solid fa-user"></i>
-        </div>
-        <div class="col text-center">
-          <i class="fa-solid fa-arrow-right-from-bracket" id="signOut"></i>
-        </div>
-        <div class="col text-center">
-          <i class="fa-solid fa-trash" id="deleteUser"></i>
+    <!-- Edit Profile Modal -->
+    <div
+      class="modal fade"
+      id="editProfileModal"
+      tabindex="-1"
+      aria-labelledby="editProfileModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="editProfileModalLabel">Edit Profile</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <!-- Profile Edit Form -->
+            <form id="editProfileForm">
+              <div class="mb-3">
+                <label for="editName" class="form-label">Full Name</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="editName"
+                  placeholder="Enter your full name"
+                />
+              </div>
+              <div class="mb-3">
+                <label for="editEmail" class="form-label">Email</label>
+                <input
+                  type="email"
+                  class="form-control"
+                  id="editEmail"
+                  placeholder="Enter your email"
+                />
+              </div>
+              <div class="mb-3">
+                <label for="editPhone" class="form-label">Phone</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="editPhone"
+                  placeholder="Enter your phone number"
+                />
+              </div>
+              <div class="mb-3">
+                <label for="editLocation" class="form-label">Location</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="editLocation"
+                  placeholder="Enter your location"
+                />
+              </div>
+              <div class="mb-3">
+                <label for="editProfilePic" class="form-label"
+                  >Profile Picture</label
+                >
+                <input type="file" class="form-control" id="editProfilePic" />
+              </div>
+              <button type="submit" class="btn btn-primary">
+                Save Changes
+              </button>
+            </form>
+          </div>
         </div>
       </div>
     </div>
@@ -136,6 +191,7 @@
 
     <!-- Firebase JS -->
     <script type="module" src="firebase.js"></script>
-    <script type="module" src="home.js"></script>
+    <script type="module" src="./cloudinary.js"></script>
+    <script type="module" src="./profile.js"></script>
   </body>
 </html>
